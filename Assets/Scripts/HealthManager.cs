@@ -22,7 +22,7 @@ public class HealthManager : MonoBehaviour {
 	void Update () {
         energySlider.value = currentEnergy;
         //Debug.Log(currentEnergy);
-        if (currentEnergy == 0)
+        if (currentEnergy <= 0)
         {
             textPanel.SetActive(true);
             loseText2.SetActive(true);

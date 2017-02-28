@@ -31,14 +31,7 @@ public class ShootVomit : MonoBehaviour {
             alpha = 0;
             healthScript.currentEnergy -= 25;
         }
-        //steadily increases green screen
-        if (alpha < 1f && textPanel.activeSelf == false)
-        {
-            alpha += .002f;
-        }
-        greenScreen.color = new Color(greenScreen.color.r, greenScreen.color.g, greenScreen.color.b, alpha);
-        //if totally green, reset to no green and vomit
-        if (alpha >= 1f)
+        else if (alpha >= 1f)
         {
             alpha = 0f;
             vomited = true;
@@ -47,6 +40,19 @@ public class ShootVomit : MonoBehaviour {
             newVomit.AddForce(cam.transform.forward * 250f);
             healthScript.currentEnergy -= 25;
         }
+        else
+        {
+            vomited = false;
+        }
+        //steadily increases green screen
+        if (alpha < 1f && textPanel.activeSelf == false)
+        {
+            alpha += .002f;
+        }
+        greenScreen.color = new Color(greenScreen.color.r, greenScreen.color.g, greenScreen.color.b, alpha);
+        //if totally green, reset to no green and vomit
+        
+        
 	}
 
     void OnTriggerEnter (Collider other)

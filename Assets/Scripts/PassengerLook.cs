@@ -38,6 +38,7 @@ public class PassengerLook : MonoBehaviour {
 
         //checks if player is within field of vision
         CheckForPlayer();
+
     }
 
     void RotateNeck()
