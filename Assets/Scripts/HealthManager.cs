@@ -18,4 +18,16 @@ public class HealthManager : MonoBehaviour {
         energySlider.value = currentEnergy;
         //Debug.Log(currentEnergy);
 	}
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Crackers" && currentEnergy <= 80)
+        {
+            currentEnergy += 20;
+        }
+        else if(other.gameObject.tag == "Crackers")
+        {
+            currentEnergy = 100;
+        }
+    }
 }

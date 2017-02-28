@@ -24,12 +24,13 @@ public class ShootVomit : MonoBehaviour {
             Rigidbody newVomit = Instantiate(vomit, new Vector3(cam.transform.position.x, cam.transform.position.y, cam.transform.position.z) + cam.transform.forward * 2f, Quaternion.identity) as Rigidbody;
             newVomit.transform.rotation = cam.transform.rotation;
             newVomit.AddForce(cam.transform.forward * 250f);
+            alpha = 0;
             //healthScript.currentEnergy -= 25;
         }
         //steadily increases green screen
         if (alpha < 1f)
         {
-            alpha += .0003f;
+            alpha += .002f;
         }
         greenScreen.color = new Color(greenScreen.color.r, greenScreen.color.g, greenScreen.color.b, alpha);
         //if totally green, reset to no green and vomit
@@ -43,8 +44,12 @@ public class ShootVomit : MonoBehaviour {
         }
 	}
 
-    void FixedUpdate()
+    void OnTriggerEnter (Collider other)
     {
-        
+        if (other.gameObject.tag == "Tea")
+        {
+            Destroy(other.gameObject);
+            alpha -= .25f;
+        }
     }
 }

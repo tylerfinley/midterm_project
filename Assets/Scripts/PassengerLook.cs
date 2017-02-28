@@ -71,6 +71,10 @@ public class PassengerLook : MonoBehaviour {
         {
             inRange = true;
         }
+        else
+        {
+            inRange = false;
+        }
 
         //Raycast to see if in sight, but how to do more than one???
         Ray ray = new Ray(transform.position, -transform.right);
