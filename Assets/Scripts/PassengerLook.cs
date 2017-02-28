@@ -69,6 +69,7 @@ public class PassengerLook : MonoBehaviour {
 
     void CheckForPlayer()
     {
+        //angle of vision
         Vector3 targetDirection = targetPlayer.position - transform.position;
         float checkedAngle = Vector3.Angle(targetDirection, -transform.right);
         if (Mathf.Abs(checkedAngle) < 30f)
@@ -86,34 +87,18 @@ public class PassengerLook : MonoBehaviour {
             inRange = false;
         }
 
-        //Raycast to see if in sight, but how to do more than one???
-        Ray ray = new Ray(transform.position, -transform.right);
-
-        RaycastHit rayHit = new RaycastHit();
-
-        Debug.DrawRay(ray.origin, ray.direction * 30f, Color.yellow);
-
-        if (Physics.Raycast(ray, out rayHit, 30f))
-        {
-            var currentlyHit = rayHit.collider;
-            if (currentlyHit.gameObject == player)
-            {
-                inSight = true;
-            }
-            else
-            {
-                inSight = false;
-            }
-            
-        }
+        
+        
 
         //lose State
-        if (vomitScript.vomited == true && inRange && inAngle && textPanel.activeSelf == false)
+        if (vomitScript.vomited == true && inRange && inAngle && inSight && textPanel.activeSelf == false)
         {
             StartCoroutine(LoseGame());
             
         }
-        if(inRange && inAngle)
+
+        //change AI color if all conditions met to be "seen"
+        if(inRange && inAngle && inSight)
         {
             GetComponent<Renderer>().material.color = new Color(0f, 1f, 1f);
         }
@@ -122,12 +107,39 @@ public class PassengerLook : MonoBehaviour {
             GetComponent<Renderer>().material.color = startColor;
         }
     }
-
+    //wait to see vomit spew before losing
     private IEnumerator LoseGame()
     {
         yield return new WaitForSeconds(1.25f);
         Debug.Log("seen by cube");
         textPanel.SetActive(true);
         loseText.SetActive(true);
+    }
+    //raycasts are physics-based
+    void FixedUpdate()
+    {
+        //Raycast to see if in sight
+        if (inAngle)
+        {
+            Ray ray = new Ray(transform.position, -transform.right);
+
+            RaycastHit rayHit = new RaycastHit();
+
+            Debug.DrawRay(ray.origin, ray.direction * 30f, Color.yellow);
+
+            if (Physics.Raycast(ray, out rayHit, 30f))
+            {
+                var currentlyHit = rayHit.collider;
+                if (currentlyHit.gameObject == player)
+                {
+                    inSight = true;
+                }
+                else
+                {
+                    inSight = false;
+                }
+
+            }
+        }
     }
 }
