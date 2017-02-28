@@ -6,10 +6,12 @@ public class VomitSplat : MonoBehaviour {
 
     Vector3 splatLocation;
     public GameObject player;
+    HealthManager healthScript;
 
 	void Start () {
-		
-	}
+        GameObject player = GameObject.Find("Player");
+        HealthManager healthScript = player.GetComponent<HealthManager>();
+    }
 
 	void Update () {
 		
