@@ -18,6 +18,16 @@ public class FirstPersonCharacterController : MonoBehaviour {
         float horizontal = Input.GetAxis("Horizontal"); // left and right
         float vertical = Input.GetAxis("Vertical");
 
+        //hold shift to move faster
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            movementSpeed *= 2f;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            movementSpeed *= .5f;
+        }
+
         //plug values into controller
         playerController.Move(transform.forward * Time.deltaTime * vertical * movementSpeed);
         playerController.Move(transform.right * Time.deltaTime * horizontal * movementSpeed);
