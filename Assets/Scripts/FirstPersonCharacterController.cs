@@ -6,13 +6,14 @@ public class FirstPersonCharacterController : MonoBehaviour {
 
     CharacterController playerController;
     public float movementSpeed = 10;
+    public GameObject player;
     HealthManager healthScript;
     
 
     void Start () {
         playerController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
-        HealthManager healthScript = GetComponent<HealthManager>();
+        healthScript = player.GetComponent<HealthManager>();
     }
 	
 	// Update is called once per frame
@@ -34,7 +35,7 @@ public class FirstPersonCharacterController : MonoBehaviour {
         //lower energy for running
         if (movementSpeed > 19f)
         {
-            //healthScript.currentEnergy -= 1;
+            healthScript.currentEnergy -= 1;
         }
 
         //plug values into controller
@@ -51,5 +52,6 @@ public class FirstPersonCharacterController : MonoBehaviour {
         {
             Cursor.lockState = CursorLockMode.None;
         }
+
     }
 }

@@ -24,10 +24,12 @@ public class HealthManager : MonoBehaviour {
         if(other.gameObject.tag == "Crackers" && currentEnergy <= 80)
         {
             currentEnergy += 20;
+            Destroy(other.gameObject);
         }
         else if(other.gameObject.tag == "Crackers")
         {
             currentEnergy = 100;
+            Destroy(other.gameObject);
         }
     }
 }

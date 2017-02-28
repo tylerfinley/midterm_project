@@ -17,11 +17,20 @@ public class PassengerLook : MonoBehaviour {
 
     public GameObject player;
 
-	void Start () {
+    public GameObject loseText;
+    public GameObject textPanel;
+
+    Color startColor;
+
+    ShootVomit vomitScript;
+
+    void Start () {
         lookLeft = true;
         lookRight = false;
         countRotation = 0f;
-	}
+        startColor = GetComponent<Renderer>().material.color;
+        vomitScript = player.GetComponent<ShootVomit>();
+    }
 	
 	void Update () {
         //rotates left and right
@@ -61,7 +70,7 @@ public class PassengerLook : MonoBehaviour {
     {
         Vector3 targetDirection = targetPlayer.position - transform.position;
         float checkedAngle = Vector3.Angle(targetDirection, -transform.right);
-        if (checkedAngle < 10f)
+        if (checkedAngle < 30f)
         {
             inAngle = true;
         }
@@ -97,9 +106,20 @@ public class PassengerLook : MonoBehaviour {
             
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && inRange && inAngle)
+        //lose State
+        if (vomitScript.vomited == true && inRange && inAngle)
         {
             Debug.Log("seen by cube");
+            textPanel.SetActive(true);
+            loseText.SetActive(true);
+        }
+        if(inRange && inAngle)
+        {
+            GetComponent<Renderer>().material.color = new Color(0f, 1f, 1f);
+        }
+        else
+        {
+            GetComponent<Renderer>().material.color = startColor;
         }
     }
 }

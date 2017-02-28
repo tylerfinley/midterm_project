@@ -9,26 +9,30 @@ public class ShootVomit : MonoBehaviour {
     public GameObject cam;
     public Image greenScreen;
     float alpha;
+    public GameObject player;
     HealthManager healthScript;
+    public GameObject textPanel;
+    public bool vomited = false;
+
 
     void Start () {
         alpha = greenScreen.color.a;
-        GameObject player = GameObject.Find("Player");
-        HealthManager healthScript = player.GetComponent<HealthManager>();
+        healthScript = player.GetComponent<HealthManager>();
     }
 	
 	void Update () {
         //shoots vomit forward from way cam is facing
 		if (Input.GetKeyDown(KeyCode.Space))
         {
+            vomited = true;
             Rigidbody newVomit = Instantiate(vomit, new Vector3(cam.transform.position.x, cam.transform.position.y, cam.transform.position.z) + cam.transform.forward * 2f, Quaternion.identity) as Rigidbody;
             newVomit.transform.rotation = cam.transform.rotation;
             newVomit.AddForce(cam.transform.forward * 250f);
             alpha = 0;
-            //healthScript.currentEnergy -= 25;
+            healthScript.currentEnergy -= 25;
         }
         //steadily increases green screen
-        if (alpha < 1f)
+        if (alpha < 1f && textPanel.activeSelf == false)
         {
             alpha += .002f;
         }
@@ -37,10 +41,11 @@ public class ShootVomit : MonoBehaviour {
         if (alpha >= 1f)
         {
             alpha = 0f;
+            vomited = true;
             Rigidbody newVomit = Instantiate(vomit, new Vector3(cam.transform.position.x, cam.transform.position.y, cam.transform.position.z) + cam.transform.forward * 2f, Quaternion.identity) as Rigidbody;
             newVomit.transform.rotation = cam.transform.rotation;
             newVomit.AddForce(cam.transform.forward * 250f);
-            //healthScript.currentEnergy -= 25;
+            healthScript.currentEnergy -= 25;
         }
 	}
 
