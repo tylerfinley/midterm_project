@@ -72,9 +72,13 @@ public class PassengerLook : MonoBehaviour {
         //angle of vision
         Vector3 targetDirection = targetPlayer.position - transform.position;
         float checkedAngle = Vector3.Angle(targetDirection, -transform.right);
-        if (Mathf.Abs(checkedAngle) < 30f)
+        if (checkedAngle < 45f)
         {
             inAngle = true;
+        }
+        else
+        {
+            inAngle = false;
         }
 
         float distance = Mathf.Abs(Vector3.Distance(targetPlayer.position, transform.position));
@@ -121,7 +125,7 @@ public class PassengerLook : MonoBehaviour {
         //Raycast to see if in sight
         if (inAngle)
         {
-            Ray ray = new Ray(transform.position, -transform.right);
+            Ray ray = new Ray(transform.position, (player.transform.position - transform.position).normalized);
 
             RaycastHit rayHit = new RaycastHit();
 
