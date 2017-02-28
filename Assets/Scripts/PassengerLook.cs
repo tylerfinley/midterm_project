@@ -71,7 +71,7 @@ public class PassengerLook : MonoBehaviour {
     {
         Vector3 targetDirection = targetPlayer.position - transform.position;
         float checkedAngle = Vector3.Angle(targetDirection, -transform.right);
-        if (checkedAngle < 30f)
+        if (Mathf.Abs(checkedAngle) < 30f)
         {
             inAngle = true;
         }
@@ -108,7 +108,7 @@ public class PassengerLook : MonoBehaviour {
         }
 
         //lose State
-        if (vomitScript.vomited == true && inRange && inAngle)
+        if (vomitScript.vomited == true && inRange && inAngle && textPanel.activeSelf == false)
         {
             StartCoroutine(LoseGame());
             

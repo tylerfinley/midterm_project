@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour {
-    public int startingEnergy = 100;
+    public int startingEnergy = 200;
     public int currentEnergy;
     public Slider energySlider;
     public GameObject textPanel;
@@ -13,7 +13,7 @@ public class HealthManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         currentEnergy = startingEnergy;
-        energySlider.maxValue = 100;
+        energySlider.maxValue = 200;
         energySlider.minValue = 0;
         StartCoroutine(GainEnergy());
     }
@@ -33,12 +33,12 @@ public class HealthManager : MonoBehaviour {
     {
         if(other.gameObject.tag == "Crackers" && currentEnergy <= 80)
         {
-            currentEnergy += 20;
+            currentEnergy += 50;
             Destroy(other.gameObject);
         }
         else if(other.gameObject.tag == "Crackers")
         {
-            currentEnergy = 100;
+            currentEnergy = 200;
             Destroy(other.gameObject);
         }
     }
@@ -48,7 +48,7 @@ public class HealthManager : MonoBehaviour {
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            if (currentEnergy < 100)
+            if (currentEnergy < 200)
                 currentEnergy += 1;
         }
     }

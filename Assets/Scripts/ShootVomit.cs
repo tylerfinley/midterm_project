@@ -29,7 +29,7 @@ public class ShootVomit : MonoBehaviour {
             newVomit.transform.rotation = cam.transform.rotation;
             newVomit.AddForce(cam.transform.forward * 250f);
             alpha = 0;
-            healthScript.currentEnergy -= 25;
+            healthScript.currentEnergy -= 50;
         }
         else if (alpha >= 1f)
         {
@@ -38,7 +38,7 @@ public class ShootVomit : MonoBehaviour {
             Rigidbody newVomit = Instantiate(vomit, new Vector3(cam.transform.position.x, cam.transform.position.y, cam.transform.position.z) + cam.transform.forward * 2f, Quaternion.identity) as Rigidbody;
             newVomit.transform.rotation = cam.transform.rotation;
             newVomit.AddForce(cam.transform.forward * 250f);
-            healthScript.currentEnergy -= 25;
+            healthScript.currentEnergy -= 50;
         }
         else
         {
