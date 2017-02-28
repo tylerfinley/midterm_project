@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShootVomit : MonoBehaviour {
 
     public Rigidbody vomit;
+    public GameObject cam;
 
 	void Start () {
 		
@@ -13,8 +14,9 @@ public class ShootVomit : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Space))
         {
-            Rigidbody newVomit = Instantiate(vomit, new Vector3(transform.position.x, transform.position.y + 3f, transform.position.z + 2f), Quaternion.identity) as Rigidbody;
-            newVomit.AddForce(Vector3.forward * 100f);
+            Rigidbody newVomit = Instantiate(vomit, new Vector3(cam.transform.position.x, cam.transform.position.y, cam.transform.position.z) + cam.transform.forward * 2f, Quaternion.identity) as Rigidbody;
+            newVomit.transform.rotation = cam.transform.rotation;
+            newVomit.AddForce(cam.transform.forward * 250f);
         }
 	}
 

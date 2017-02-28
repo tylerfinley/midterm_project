@@ -5,6 +5,7 @@ using UnityEngine;
 public class VomitSplat : MonoBehaviour {
 
     Vector3 splatLocation;
+    public GameObject player;
 
 	void Start () {
 		
@@ -16,8 +17,11 @@ public class VomitSplat : MonoBehaviour {
 
     void OnCollisionEnter (Collision other)
     {
-        splatLocation = other.contacts[0].point;
-        Debug.Log(splatLocation);
-        Destroy(gameObject, .1f);
+        if (other.gameObject != player)
+        {
+            splatLocation = other.contacts[0].point;
+            //Debug.Log(splatLocation);
+            Destroy(gameObject, .1f);
+        }
     }
 }

@@ -9,6 +9,7 @@ public class FirstPersonCharacterController : MonoBehaviour {
 
 	void Start () {
         playerController = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
 	}
 	
 	// Update is called once per frame
@@ -25,6 +26,11 @@ public class FirstPersonCharacterController : MonoBehaviour {
         playerController.Move(Physics.gravity * .01f);
 
         //turning
-        transform.Rotate(0f, Input.GetAxis("Mouse X") * Time.deltaTime * 180f, 0f);
+        //transform.Rotate(0f, Input.GetAxis("Mouse X") * Time.deltaTime * 180f, 0f);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 }
