@@ -7,6 +7,9 @@ public class PassengerLook : MonoBehaviour {
     public bool lookLeft;
     public bool lookRight;
 
+    public float rotationSpeed;
+    public float rotationAmount;
+
     float countRotation;
 
     public Transform targetPlayer;
@@ -43,13 +46,13 @@ public class PassengerLook : MonoBehaviour {
 
     void RotateNeck()
     {
-        if (countRotation > 75f)
+        if (countRotation > rotationAmount)
         {
             countRotation = 0f;
             lookLeft = true;
             lookRight = false;
         }
-        if (countRotation < -75f)
+        if (countRotation < -rotationAmount)
         {
             countRotation = 0f;
             lookLeft = false;
@@ -57,13 +60,13 @@ public class PassengerLook : MonoBehaviour {
         }
         if (lookLeft)
         {
-            transform.Rotate(0f, Time.deltaTime * -20f, 0f);
-            countRotation += Time.deltaTime * -20f;
+            transform.Rotate(0f, Time.deltaTime * -rotationSpeed, 0f);
+            countRotation += Time.deltaTime * -rotationSpeed;
         }
         if (lookRight)
         {
-            transform.Rotate(0f, Time.deltaTime * 20f, 0f);
-            countRotation += Time.deltaTime * 20f;
+            transform.Rotate(0f, Time.deltaTime * rotationSpeed, 0f);
+            countRotation += Time.deltaTime * rotationSpeed;
         }
     }
 
