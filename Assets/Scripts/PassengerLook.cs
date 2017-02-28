@@ -11,6 +11,12 @@ public class PassengerLook : MonoBehaviour {
 
     public Transform targetPlayer;
 
+    bool inAngle;
+    bool inSight;
+    bool inRange;
+
+    public GameObject player;
+
 	void Start () {
         lookLeft = true;
         lookRight = false;
@@ -55,7 +61,39 @@ public class PassengerLook : MonoBehaviour {
     {
         Vector3 targetDirection = targetPlayer.position - transform.position;
         float checkedAngle = Vector3.Angle(targetDirection, -transform.right);
-        if (checkedAngle < 10f && Input.GetKeyDown(KeyCode.Space))
+        if (checkedAngle < 10f)
+        {
+            inAngle = true;
+        }
+
+        float distance = Mathf.Abs(Vector3.Distance(targetPlayer.position, transform.position));
+        if (distance < 25f)
+        {
+            inRange = true;
+        }
+
+        //Raycast to see if in sight, but how to do more than one???
+        Ray ray = new Ray(transform.position, -transform.right);
+
+        RaycastHit rayHit = new RaycastHit();
+
+        Debug.DrawRay(ray.origin, ray.direction * 30f, Color.yellow);
+
+        if (Physics.Raycast(ray, out rayHit, 30f))
+        {
+            var currentlyHit = rayHit.collider;
+            if (currentlyHit.gameObject == player)
+            {
+                inSight = true;
+            }
+            else
+            {
+                inSight = false;
+            }
+            
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && inRange && inAngle)
         {
             Debug.Log("seen by cube");
         }

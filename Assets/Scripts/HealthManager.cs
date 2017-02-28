@@ -16,6 +16,6 @@ public class HealthManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         energySlider.value = currentEnergy;
-        Debug.Log(currentEnergy);
+        //Debug.Log(currentEnergy);
 	}
 }
