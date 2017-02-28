@@ -109,9 +109,8 @@ public class PassengerLook : MonoBehaviour {
         //lose State
         if (vomitScript.vomited == true && inRange && inAngle)
         {
-            Debug.Log("seen by cube");
-            textPanel.SetActive(true);
-            loseText.SetActive(true);
+            StartCoroutine(LoseGame());
+            
         }
         if(inRange && inAngle)
         {
@@ -121,5 +120,13 @@ public class PassengerLook : MonoBehaviour {
         {
             GetComponent<Renderer>().material.color = startColor;
         }
+    }
+
+    private IEnumerator LoseGame()
+    {
+        yield return new WaitForSeconds(1.25f);
+        Debug.Log("seen by cube");
+        textPanel.SetActive(true);
+        loseText.SetActive(true);
     }
 }
