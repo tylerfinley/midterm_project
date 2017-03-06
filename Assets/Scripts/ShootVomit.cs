@@ -14,6 +14,11 @@ public class ShootVomit : MonoBehaviour {
     public GameObject textPanel;
     public bool vomited = false;
 
+    //test variables
+    public float xR;
+    public float yR;
+    public float zR;
+
 
     void Start () {
         alpha = greenScreen.color.a;
@@ -25,8 +30,9 @@ public class ShootVomit : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Space))
         {
             vomited = true;
-            Rigidbody newVomit = Instantiate(vomit, new Vector3(cam.transform.position.x, cam.transform.position.y, cam.transform.position.z) + cam.transform.forward * 2f, Quaternion.identity) as Rigidbody;
+            Rigidbody newVomit = Instantiate(vomit, new Vector3(cam.transform.position.x, cam.transform.position.y-.6f, cam.transform.position.z) + cam.transform.forward * 2f, Quaternion.identity) as Rigidbody;
             newVomit.transform.rotation = cam.transform.rotation;
+            newVomit.transform.rotation *= Quaternion.Euler(0, -90f, 0);
             newVomit.AddForce(cam.transform.forward * 250f);
             alpha = 0;
             healthScript.currentEnergy -= 50;
@@ -38,6 +44,7 @@ public class ShootVomit : MonoBehaviour {
             Rigidbody newVomit = Instantiate(vomit, new Vector3(cam.transform.position.x, cam.transform.position.y, cam.transform.position.z) + cam.transform.forward * 2f, Quaternion.identity) as Rigidbody;
             newVomit.transform.rotation = cam.transform.rotation;
             newVomit.AddForce(cam.transform.forward * 250f);
+            newVomit.transform.rotation = Quaternion.Euler(0, -90f, 0);
             healthScript.currentEnergy -= 50;
         }
         else
@@ -47,7 +54,7 @@ public class ShootVomit : MonoBehaviour {
         //steadily increases green screen
         if (alpha < 1f && textPanel.activeSelf == false)
         {
-            alpha += .002f;
+            alpha +=.03f * Time.deltaTime;
         }
         greenScreen.color = new Color(greenScreen.color.r, greenScreen.color.g, greenScreen.color.b, alpha);
         //if totally green, reset to no green and vomit

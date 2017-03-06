@@ -13,7 +13,7 @@ public class HealthManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         currentEnergy = startingEnergy;
-        energySlider.maxValue = 200;
+        energySlider.maxValue = 400;
         energySlider.minValue = 0;
         StartCoroutine(GainEnergy());
     }
@@ -38,7 +38,7 @@ public class HealthManager : MonoBehaviour {
         }
         else if(other.gameObject.tag == "Crackers")
         {
-            currentEnergy = 200;
+            currentEnergy = 400;
             Destroy(other.gameObject);
         }
     }
@@ -48,7 +48,7 @@ public class HealthManager : MonoBehaviour {
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            if (currentEnergy < 200)
+            if (currentEnergy < 400)
                 currentEnergy += 1;
         }
     }
