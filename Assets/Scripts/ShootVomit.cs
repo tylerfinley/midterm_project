@@ -41,7 +41,7 @@ public class ShootVomit : MonoBehaviour {
         {
             alpha = 0f;
             vomited = true;
-            Rigidbody newVomit = Instantiate(vomit, new Vector3(cam.transform.position.x, cam.transform.position.y, cam.transform.position.z) + cam.transform.forward * 2f, Quaternion.identity) as Rigidbody;
+            Rigidbody newVomit = Instantiate(vomit, new Vector3(cam.transform.position.x, cam.transform.position.y-.6f, cam.transform.position.z) + cam.transform.forward * 2f, Quaternion.identity) as Rigidbody;
             newVomit.transform.rotation = cam.transform.rotation;
             newVomit.AddForce(cam.transform.forward * 250f);
             newVomit.transform.rotation = Quaternion.Euler(0, -90f, 0);

@@ -5,8 +5,10 @@ using UnityEngine;
 public class VomitSplat : MonoBehaviour {
 
     Vector3 splatLocation;
-    public GameObject player;
+    public GameObject splatPlacement;
+    GameObject player;
     HealthManager healthScript;
+    public GameObject vomitSplat;
 
 	void Start () {
         GameObject player = GameObject.Find("Player");
@@ -22,8 +24,11 @@ public class VomitSplat : MonoBehaviour {
         if (other.gameObject != player)
         {
             splatLocation = other.contacts[0].point;
+            splatPlacement.transform.position = splatLocation;
             //Debug.Log(splatLocation);
-            Destroy(gameObject, .1f);
+            Destroy(gameObject, .5f);
+            Debug.Log(splatPlacement.transform.position);
+            GameObject newVomitSplat = Instantiate(vomitSplat, splatPlacement.transform) as GameObject;
         }
     }
 }
