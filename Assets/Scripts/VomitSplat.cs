@@ -5,7 +5,6 @@ using UnityEngine;
 public class VomitSplat : MonoBehaviour {
 
     Vector3 splatLocation;
-    public GameObject splatPlacement;
     public GameObject player;
     HealthManager healthScript;
     public GameObject vomitSplat;
@@ -24,10 +23,9 @@ public class VomitSplat : MonoBehaviour {
         if (other.gameObject != GameObject.Find("Player"))
         {
             splatLocation = other.contacts[0].point;
-            splatPlacement.transform.position = splatLocation;
             Debug.Log(other.gameObject);
-            var newSplat = Instantiate(vomitSplat, splatLocation, other.gameObject.transform.rotation);
-            Destroy(gameObject, .5f);  
+            var newSplat = Instantiate(vomitSplat, new Vector3(splatLocation.x, splatLocation.y + .1f, splatLocation.z), other.gameObject.transform.rotation);
+            Destroy(gameObject, .01f);  
         }
     }
 }

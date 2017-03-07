@@ -9,6 +9,9 @@ public class HealthManager : MonoBehaviour {
     public Slider energySlider;
     public GameObject textPanel;
     public GameObject loseText2;
+    public GameObject player;
+    GameManager gameManagerScript;
+    public GameObject passenger;
 
 	// Use this for initialization
 	void Start () {
@@ -16,13 +19,14 @@ public class HealthManager : MonoBehaviour {
         energySlider.maxValue = 100f;
         energySlider.minValue = 0f;
         StartCoroutine(GainEnergy());
+        gameManagerScript = player.GetComponent<GameManager>();
     }
 	
 	// Update is called once per frame
 	void Update () {
         energySlider.value = currentEnergy;
         //Debug.Log(currentEnergy);
-        if (currentEnergy <= 0)
+        if (currentEnergy <= 0 && gameManagerScript.loseState)
         {
             textPanel.SetActive(true);
             loseText2.SetActive(true);

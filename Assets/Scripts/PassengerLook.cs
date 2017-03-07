@@ -27,12 +27,16 @@ public class PassengerLook : MonoBehaviour {
 
     ShootVomit vomitScript;
 
+    //turn on or off the endstate
+    GameManager gameManagerScript;
+
     void Start () {
         lookLeft = true;
         lookRight = false;
         countRotation = 0f;
         startColor = GetComponent<Renderer>().material.color;
         vomitScript = player.GetComponent<ShootVomit>();
+        gameManagerScript = player.GetComponent<GameManager>();
     }
 	
 	void Update () {
@@ -117,10 +121,13 @@ public class PassengerLook : MonoBehaviour {
     //wait to see vomit spew before losing
     private IEnumerator LoseGame()
     {
-        yield return new WaitForSeconds(1.25f);
-        Debug.Log("seen by cube");
-        textPanel.SetActive(true);
-        loseText.SetActive(true);
+        if (gameManagerScript.loseState)
+        {
+            yield return new WaitForSeconds(1.25f);
+            Debug.Log("seen by cube");
+            textPanel.SetActive(true);
+            loseText.SetActive(true);
+        }
     }
     //raycasts are physics-based
     void FixedUpdate()
