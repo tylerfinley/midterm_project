@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour {
-    public int startingEnergy = 200;
-    public int currentEnergy;
+    public float startingEnergy = 100f;
+    public float currentEnergy;
     public Slider energySlider;
     public GameObject textPanel;
     public GameObject loseText2;
@@ -13,8 +13,8 @@ public class HealthManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         currentEnergy = startingEnergy;
-        energySlider.maxValue = 400;
-        energySlider.minValue = 0;
+        energySlider.maxValue = 100f;
+        energySlider.minValue = 0f;
         StartCoroutine(GainEnergy());
     }
 	
@@ -31,14 +31,14 @@ public class HealthManager : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Crackers" && currentEnergy <= 80)
+        if(other.gameObject.tag == "Crackers" && currentEnergy <= 50f)
         {
-            currentEnergy += 50;
+            currentEnergy += 50f;
             Destroy(other.gameObject);
         }
         else if(other.gameObject.tag == "Crackers")
         {
-            currentEnergy = 400;
+            currentEnergy = 100f;
             Destroy(other.gameObject);
         }
     }
@@ -48,8 +48,8 @@ public class HealthManager : MonoBehaviour {
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            if (currentEnergy < 400)
-                currentEnergy += 1;
+            if (currentEnergy < 100f)
+                currentEnergy += .25f * Time.deltaTime;
         }
     }
 }

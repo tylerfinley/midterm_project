@@ -35,7 +35,7 @@ public class ShootVomit : MonoBehaviour {
             newVomit.transform.rotation *= Quaternion.Euler(0, -90f, 0);
             newVomit.AddForce(cam.transform.forward * 250f);
             alpha = 0;
-            healthScript.currentEnergy -= 50;
+            healthScript.currentEnergy -= 20;
         }
         else if (alpha >= 1f)
         {
@@ -45,7 +45,7 @@ public class ShootVomit : MonoBehaviour {
             newVomit.transform.rotation = cam.transform.rotation;
             newVomit.AddForce(cam.transform.forward * 250f);
             newVomit.transform.rotation = Quaternion.Euler(0, -90f, 0);
-            healthScript.currentEnergy -= 50;
+            healthScript.currentEnergy -= 20;
         }
         else
         {
@@ -54,7 +54,7 @@ public class ShootVomit : MonoBehaviour {
         //steadily increases green screen
         if (alpha < 1f && textPanel.activeSelf == false)
         {
-            alpha +=.03f * Time.deltaTime;
+            alpha +=.06f * Time.deltaTime;
         }
         greenScreen.color = new Color(greenScreen.color.r, greenScreen.color.g, greenScreen.color.b, alpha);
         //if totally green, reset to no green and vomit

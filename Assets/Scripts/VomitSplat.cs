@@ -6,12 +6,12 @@ public class VomitSplat : MonoBehaviour {
 
     Vector3 splatLocation;
     public GameObject splatPlacement;
-    GameObject player;
+    public GameObject player;
     HealthManager healthScript;
     public GameObject vomitSplat;
 
 	void Start () {
-        GameObject player = GameObject.Find("Player");
+        //GameObject player = GameObject.Find("Player");
         HealthManager healthScript = player.GetComponent<HealthManager>();
     }
 
@@ -21,14 +21,13 @@ public class VomitSplat : MonoBehaviour {
 
     void OnCollisionEnter (Collision other)
     {
-        if (other.gameObject != player)
+        if (other.gameObject != GameObject.Find("Player"))
         {
             splatLocation = other.contacts[0].point;
             splatPlacement.transform.position = splatLocation;
-            //Debug.Log(splatLocation);
-            Destroy(gameObject, .5f);
-            Debug.Log(splatPlacement.transform.position);
-            GameObject newVomitSplat = Instantiate(vomitSplat, splatPlacement.transform) as GameObject;
+            Debug.Log(other.gameObject);
+            var newSplat = Instantiate(vomitSplat, splatLocation, other.gameObject.transform.rotation);
+            Destroy(gameObject, .5f);  
         }
     }
 }

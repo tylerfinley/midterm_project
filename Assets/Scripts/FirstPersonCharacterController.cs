@@ -8,6 +8,7 @@ public class FirstPersonCharacterController : MonoBehaviour {
     public float movementSpeed = 10;
     public GameObject player;
     HealthManager healthScript;
+    bool fast;
     
 
     void Start () {
@@ -26,16 +27,18 @@ public class FirstPersonCharacterController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             movementSpeed *= 2f;
+            fast = true;
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             movementSpeed *= .5f;
+            fast = false;
         }
 
         //lower energy for running
-        if (movementSpeed > 19f)
+        if (fast)
         {
-            healthScript.currentEnergy -= 1;
+            healthScript.currentEnergy -= 8f * Time.deltaTime;
         }
 
         //plug values into controller
