@@ -41,10 +41,10 @@ public class ShootVomit : MonoBehaviour {
             vomited = true;
             vomitAudio.Play();
             //arm movement
-            Vector3 targetDir = armTarget.position - arm.transform.position;
-            Vector3 newDir = Vector3.RotateTowards(arm.transform.forward, targetDir, Time.deltaTime * .0001f, 0f);
-            arm.transform.rotation = Quaternion.LookRotation(newDir);
-            arm.transform.position = Vector3.MoveTowards(arm.transform.position, armTarget.position, 0f);
+            //Vector3 targetDir = armTarget.position - arm.transform.position;
+            //Vector3 newDir = Vector3.RotateTowards(arm.transform.forward, targetDir, Time.deltaTime * .0001f, 0f);
+            //arm.transform.rotation = Quaternion.LookRotation(newDir);
+            //arm.transform.position = Vector3.MoveTowards(arm.transform.position, armTarget.position, 0f);
             //vomit creation and propulsion
             Rigidbody newVomit = Instantiate(vomit, new Vector3(cam.transform.position.x, cam.transform.position.y-.6f, cam.transform.position.z) + cam.transform.forward * 2f, Quaternion.identity) as Rigidbody;
             newVomit.transform.rotation = cam.transform.rotation;

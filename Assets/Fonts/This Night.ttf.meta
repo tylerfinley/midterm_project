@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 584ca29240581644287c26068a93a14e
+timeCreated: 1489362782
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: This Night
+  fontNames:
+  - This Night
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
