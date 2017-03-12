@@ -12,6 +12,7 @@ public class HealthManager : MonoBehaviour {
     public GameObject player;
     GameManager gameManagerScript;
     public GameObject passenger;
+    public AudioSource eatChips;
 
 	// Use this for initialization
 	void Start () {
@@ -37,11 +38,13 @@ public class HealthManager : MonoBehaviour {
     {
         if(other.gameObject.tag == "Crackers" && currentEnergy <= 50f)
         {
+            eatChips.Play();
             currentEnergy += 50f;
             Destroy(other.gameObject);
         }
         else if(other.gameObject.tag == "Crackers")
         {
+            eatChips.Play();
             currentEnergy = 100f;
             Destroy(other.gameObject);
         }

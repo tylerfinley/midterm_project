@@ -19,28 +19,44 @@ public class ShootVomit : MonoBehaviour {
     public float yR;
     public float zR;
 
+    AudioSource vomitAudio;
+    public AudioSource sipTea;
+
+    public GameObject arm;
+    public Transform armTarget;
+
 
     void Start () {
         alpha = greenScreen.color.a;
         healthScript = player.GetComponent<HealthManager>();
+        vomitAudio = player.GetComponent<AudioSource>();
     }
 	
 	void Update () {
         //shoots vomit forward from way cam is facing
 		if (Input.GetKeyDown(KeyCode.Space))
         {
+            //reset green screen
+            alpha = 0;
             vomited = true;
+            vomitAudio.Play();
+            //arm movement
+            Vector3 targetDir = armTarget.position - arm.transform.position;
+            Vector3 newDir = Vector3.RotateTowards(arm.transform.forward, targetDir, Time.deltaTime * .0001f, 0f);
+            arm.transform.rotation = Quaternion.LookRotation(newDir);
+            arm.transform.position = Vector3.MoveTowards(arm.transform.position, armTarget.position, 0f);
+            //vomit creation and propulsion
             Rigidbody newVomit = Instantiate(vomit, new Vector3(cam.transform.position.x, cam.transform.position.y-.6f, cam.transform.position.z) + cam.transform.forward * 2f, Quaternion.identity) as Rigidbody;
             newVomit.transform.rotation = cam.transform.rotation;
             newVomit.transform.rotation *= Quaternion.Euler(0, -90f, 0);
             newVomit.AddForce(cam.transform.forward * 250f);
-            alpha = 0;
             healthScript.currentEnergy -= 20;
         }
         else if (alpha >= 1f)
         {
             alpha = 0f;
             vomited = true;
+            vomitAudio.Play();
             Rigidbody newVomit = Instantiate(vomit, new Vector3(cam.transform.position.x, cam.transform.position.y-.6f, cam.transform.position.z) + cam.transform.forward * 2f, Quaternion.identity) as Rigidbody;
             newVomit.transform.rotation = cam.transform.rotation;
             newVomit.AddForce(cam.transform.forward * 250f);
@@ -66,6 +82,7 @@ public class ShootVomit : MonoBehaviour {
     {
         if (other.gameObject.tag == "Tea")
         {
+            sipTea.Play();
             Destroy(other.gameObject);
             alpha -= .25f;
         }

@@ -34,7 +34,11 @@ public class PassengerLook : MonoBehaviour {
         lookLeft = true;
         lookRight = false;
         countRotation = 0f;
-        startColor = GetComponent<Renderer>().material.color;
+        Renderer[] faceColors = GetComponentsInChildren<Renderer>();
+        foreach (Renderer thisRenderer in faceColors)
+        {
+            startColor = thisRenderer.material.color;
+        }
         vomitScript = player.GetComponent<ShootVomit>();
         gameManagerScript = player.GetComponent<GameManager>();
     }
@@ -79,7 +83,7 @@ public class PassengerLook : MonoBehaviour {
         //angle of vision
         Vector3 targetDirection = targetPlayer.position - transform.position;
         float checkedAngle = Vector3.Angle(targetDirection, -transform.right);
-        if (checkedAngle < 45f)
+        if (checkedAngle < 35f)
         {
             inAngle = true;
         }
@@ -111,11 +115,19 @@ public class PassengerLook : MonoBehaviour {
         //change AI color if all conditions met to be "seen"
         if(inRange && inAngle && inSight)
         {
-            GetComponent<Renderer>().material.color = new Color(0f, 1f, 1f);
+            Renderer[] faceColors = GetComponentsInChildren<Renderer>();
+            foreach (Renderer thisRenderer in faceColors)
+            {
+                thisRenderer.material.color = new Color(0f, 1f, 1f);
+            }
         }
         else
         {
-            GetComponent<Renderer>().material.color = startColor;
+            Renderer[] faceColors = GetComponentsInChildren<Renderer>();
+            foreach (Renderer thisRenderer in faceColors)
+            {
+                thisRenderer.material.color = startColor;
+            }
         }
     }
     //wait to see vomit spew before losing
